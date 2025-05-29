@@ -1,0 +1,303 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f06d06, #ee0979); /* Degradado de fondo */
+    color: #fff;
+    text-align: center;
+    overflow: hidden; /* Evita barras de desplazamiento si algo se desborda */
+    position: relative; /* Para posicionar el efecto de fondo */
+}
+
+.game-container {
+    background-color: rgba(0, 0, 0, 0.4); /* Fondo semi-transparente */
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px); /* Efecto de desenfoque en el fondo */
+    max-width: 500px;
+    width: 90%;
+    margin: 20px;
+    z-index: 10; /* Para que esté por encima del fondo animado */
+}
+
+h1 {
+    font-size: 2.8em;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Marcador de puntos */
+.score-board {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 15px 0;
+    margin-bottom: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.score-section h2 {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.score-section span {
+    font-size: 3em;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* Botones de elección */
+.choices {
+    display: flex;
+    justify-content: space-around;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap; /* Para que se ajusten en pantallas pequeñas */
+}
+
+.choice-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    padding: 15px;
+    width: 120px; /* Ancho fijo para los botones */
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #fff;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.choice-btn:hover:not(.disabled) { /* Evita el hover cuando el botón está deshabilitado */
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-5px) scale(1.05); /* Efecto de levantamiento y escala */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Deshabilitar botones al finalizar el juego */
+.choice-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Estilos para los íconos de Font Awesome dentro de los botones */
+.choice-btn i {
+    font-size: 3em; /* Tamaño del ícono */
+    margin-bottom: 8px; /* Espacio entre el ícono y el texto */
+    color: #fff; /* Color del ícono, puedes cambiarlo si quieres */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* Sombra para el ícono */
+}
+
+/* Resultado del juego */
+.result-display p {
+    font-size: 1.3em;
+    margin: 10px 0;
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+#game-result {
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #fff; /* Color predeterminado */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Clases para los resultados */
+.win {
+    color: #7aff7a; /* Verde brillante */
+}
+
+.lose {
+    color: #ff6e6e; /* Rojo vibrante */
+}
+
+.draw {
+    color: #ffd700; /* Amarillo oro */
+}
+
+/* Botón de reiniciar */
+.reset-btn {
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    cursor: pointer;
+    margin-top: 30px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.reset-btn:hover {
+    background-color: #777;
+    transform: translateY(-2px);
+}
+
+/* Responsividad básica */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    .choice-btn {
+        width: 100px;
+        height: 100px;
+        font-size: 1em;
+        padding: 10px;
+    }
+
+    /* Ajuste para el tamaño del ícono en pantallas pequeñas */
+    .choice-btn i {
+        font-size: 2.5em; 
+    }
+
+    .result-display p {
+        font-size: 1.1em;
+    }
+
+    #game-result {
+        font-size: 1.5em;
+    }
+}
+
+/* --- Nuevos estilos para el fin de juego y efectos --- */
+
+/* Modal de Fin de Juego */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Posición fija en la pantalla */
+    z-index: 100; /* Por encima de todo lo demás */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Habilita el scroll si el contenido es demasiado grande */
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo semi-transparente oscuro */
+    justify-content: center;
+    align-items: center;
+    opacity: 0; /* Para la animación de aparición */
+    transition: opacity 0.3s ease;
+}
+
+.modal.show {
+    display: flex; /* Mostrar cuando se le añada la clase 'show' */
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    color: #333;
+    animation: zoomIn 0.3s ease-out; /* Pequeña animación al aparecer */
+}
+
+.modal-content h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #4CAF50; /* Verde para ganar, rojo para perder */
+}
+
+.modal-content button {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 25px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal-content button:hover {
+    background-color: #3b7ad6;
+}
+
+/* Efectos de fondo (ahora solo para el efecto de derrota) */
+#background-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Permite hacer clic a través de él */
+    overflow: hidden; 
+    z-index: 5; /* Detrás del contenedor del juego y del modal */
+}
+
+/* Eliminar reglas de confeti CSS antiguas */
+/* .confetti { ... } */
+/* @keyframes fall { ... } */
+
+
+/* Efecto de X para perder */
+#background-effect.lose-effect {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 0, 0, 0.1); /* Fondo rojo muy sutil */
+}
+
+#background-effect.lose-effect::before,
+#background-effect.lose-effect::after {
+    content: '';
+    position: absolute;
+    width: 80%;
+    height: 10px;
+    background-color: rgba(255, 0, 0, 0.8); /* Rojo más fuerte para la X */
+    border-radius: 5px;
+    animation: fadeInScale 0.5s ease-out forwards;
+    transform-origin: center;
+}
+
+#background-effect.lose-effect::before {
+    transform: rotate(45deg) scale(0);
+}
+
+#background-effect.lose-effect::after {
+    transform: rotate(-45deg) scale(0);
+}
+
+/* Animaciones */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

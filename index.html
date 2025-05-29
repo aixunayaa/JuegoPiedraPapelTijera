@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piedra, Papel o Tijera</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>Piedra, Papel o Tijera</h1>
+
+        <div class="score-board">
+            <div class="score-section player-score">
+                <h2>Tú</h2>
+                <span id="player-score">0</span>
+            </div>
+            <div class="score-section computer-score">
+                <h2>Computadora</h2>
+                <span id="computer-score">0</span>
+            </div>
+        </div>
+
+        <div class="choices">
+            <button class="choice-btn" id="rock" data-choice="piedra">
+                <i class="fa-solid fa-hand-rock"></i> 
+                <span>Piedra</span>
+            </button>
+            <button class="choice-btn" id="paper" data-choice="papel">
+                <i class="fa-solid fa-hand"></i> 
+                <span>Papel</span>
+            </button>
+            <button class="choice-btn" id="scissors" data-choice="tijera">
+                <i class="fa-solid fa-hand-scissors"></i> 
+                <span>Tijera</span>
+            </button>
+        </div>
+
+        <div class="result-display">
+            <p id="player-choice-display">Tú elegiste: </p>
+            <p id="computer-choice-display">La computadora eligió: </p>
+            <p id="game-result">¡Haz tu jugada!</p>
+        </div>
+
+        <button class="reset-btn" id="reset-game">Reiniciar Juego</button>
+    </div>
+
+    <div id="game-over-modal" class="modal">
+        <div class="modal-content">
+            <h2 id="final-message"></h2>
+            <button id="play-again-btn">Jugar de Nuevo</button>
+        </div>
+    </div>
+
+    <div id="background-effect"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
