@@ -5,7 +5,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(135deg, #f06d06, #ee0979); /* Degradado de fondo */
+    background: linear-gradient(135deg,  #76a6ef, #c080f0); /* Degradado de fondo */
     color: #fff;
     text-align: center;
     overflow: hidden; /* Evita barras de desplazamiento si algo se desborda */
